@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       tasks: [],
-      completedTasksNo: '',
+      completedTasksNo: [],
     }
   },
   components: {
@@ -25,12 +25,26 @@ export default {
   methods: {
     addTask(newTask) {
       this.tasks.push(newTask);
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
       this.completedTasksNo = this.tasks.filter(task => task.completed === true).length;
     },
     updateTask(updatedTasks) {
       this.tasks = [...updatedTasks];
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
       this.completedTasksNo = this.tasks.filter(task => task.completed === true).length;
     }
+  },
+  created() {
+    try {
+      if (Array.isArray(JSON.parse(localStorage.getItem('tasks')))) {
+        this.tasks = JSON.parse(localStorage.getItem('tasks'));
+      }
+    }
+    catch {
+      localStorage.setItem('tasks', []);
+      this.tasks = [];
+    }
+    this.completedTasksNo = this.tasks.filter(task => task.completed === true).length;
   }
 }
 </script>
@@ -43,13 +57,10 @@ body {
         background-color: #f0f7f6;
 }
     .appear-enter-active {
-        animation: appear-in 400ms ease-out forwards;
+        animation: appear-in 500ms ease-out forwards;
     }
     .appear-leave-active {
-        animation: appear-out 400ms ease-out forwards;
-    }
-    .slide-move {
-      transition: transform 1s;
+        animation: appear-out 500ms ease-out forwards;
     }
     @keyframes appear-in {
         from {

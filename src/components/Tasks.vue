@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <div class="row justify-content-center">
-            <h6 v-if="tasksNC.length > 0 || tasksC.length > 0">List of Tasks:</h6>
+            <transition name="appear">
+                <h6 v-if="tasksNC.length > 0 || tasksC.length > 0">List of Tasks:</h6>
+            </transition>
         </div>
         <div class="sublist">
             <app-task v-if="tasksNC.length > 0" v-for="(task, i) in tasksNC" class="row" :key="Math.random()">

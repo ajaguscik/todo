@@ -38,6 +38,7 @@ export default {
         color: #f0f7f6;
         background-color: #255c40;
         margin-left: 1em;
+        margin-top: 0;
     }
     .btn-add:hover {
         color: #f0f7f6;
